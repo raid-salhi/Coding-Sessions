@@ -58,15 +58,7 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppScreen(){
-    val listOfPlants =
-        listOf(
-            Plant("Spider Plant","Great Plant",R.drawable.spider_plant),
-            Plant("Song of India","Great Plant",R.drawable.song_of_india),
-            Plant("Pink Anthurium","Great Plant",R.drawable.pink_anthurium),
-            Plant("Black Love Anthurium","Great Plant",R.drawable.black_star),
-            Plant("Grey Star Calarthea","Great Plant",R.drawable.grey_star),
-            Plant("Banana Plant","Great Plant",R.drawable.banana_plant),
-            )
+    val listOfPlants = getPlantsList()
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -121,6 +113,17 @@ fun AppScreen(){
             }
         }
     }
+}
+
+fun getPlantsList(): List<Plant> {
+    return listOf(
+        Plant("Spider Plant","Great Plant",R.drawable.spider_plant),
+        Plant("Song of India","Great Plant",R.drawable.song_of_india),
+        Plant("Pink Anthurium","Great Plant",R.drawable.pink_anthurium),
+        Plant("Black Love Anthurium","Great Plant",R.drawable.black_star),
+        Plant("Grey Star Calarthea","Great Plant",R.drawable.grey_star),
+        Plant("Banana Plant","Great Plant",R.drawable.banana_plant),
+    )
 }
 
 @Composable
