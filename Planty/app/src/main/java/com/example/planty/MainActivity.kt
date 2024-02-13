@@ -11,19 +11,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -35,7 +31,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -54,7 +49,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
+@Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppScreen(){
@@ -107,8 +102,8 @@ fun AppScreen(){
                 modifier = Modifier.padding(bottom = 15.dp)
             )
             LazyVerticalGrid(modifier = Modifier.fillMaxWidth(),columns = GridCells.Fixed(2), horizontalArrangement = Arrangement.SpaceBetween){
-                items(items = listOfPlants){ plant ->
-                    PlantCard(plant=plant)
+                itemsIndexed(items = listOfPlants){ index,plant ->
+                    PlantCard(plant=plant,index=index)
                 }
             }
         }
@@ -127,33 +122,42 @@ fun getPlantsList(): List<Plant> {
 }
 
 @Composable
-fun PlantCard(plant: Plant) {
-    Column (Modifier.padding(bottom = 15.dp)) {
-        Box (
-            modifier = Modifier
-                .clip(RoundedCornerShape(10.dp))
-                .background(Color(0xffF2F2F2))
+fun PlantCard(plant: Plant, index: Int) {
+    val alignment = if (index % 2==0) Alignment.CenterStart else Alignment.CenterEnd
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 15.dp)
+    ){
+        Column (modifier = Modifier.align(alignment)) {
+            Box (
+                modifier = Modifier
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(Color(0xffF2F2F2))
 
-        ){
-            Image(
-                painter = painterResource(id = plant.img),
-                contentDescription = "plant img",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.align(Alignment.BottomCenter).width(170.dp)
+            ){
+                Image(
+                    painter = painterResource(id = plant.img),
+                    contentDescription = "plant img",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .fillMaxWidth(0.95f)
+                )
+            }
+            Text(
+                text = plant.name,
+                fontSize = 16.sp,
+                modifier = Modifier.padding(top = 5.dp),
+                fontFamily = FontFamily(listOf(Font(R.font.lato_bold)))
+            )
+            Text(
+                text = plant.description,
+                fontSize = 14.sp,
+                color = MyGray,
+                fontFamily = FontFamily(listOf(Font(R.font.lato_reg)))
             )
         }
-        Text(
-            text = plant.name,
-            fontSize = 16.sp,
-            modifier = Modifier.padding(top = 5.dp),
-            fontFamily = FontFamily(listOf(Font(R.font.lato_bold)))
-        )
-        Text(
-            text = plant.description,
-            fontSize = 14.sp,
-            color = MyGray,
-            fontFamily = FontFamily(listOf(Font(R.font.lato_reg)))
-        )
     }
 }
 
