@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Content(){
     var name by remember {
-       mutableStateOf("User")
+        mutableStateOf("User")
     }
     var showDialog by remember {
         mutableStateOf(false)
@@ -77,9 +77,6 @@ fun Content(){
                 text = "Say Hi!",
                 color = Color.White,
                 fontSize = 20.sp,
-                fontFamily = FontFamily(listOf(
-                    Font(R.font.poppins_semibold)
-                ))
 
             )
 
@@ -88,9 +85,6 @@ fun Content(){
             text = name,
             color = Color.White,
             fontSize = 16.sp,
-            fontFamily = FontFamily(listOf(
-                Font(R.font.poppins_medium)
-            ))
 
         )
         Button(
@@ -106,11 +100,9 @@ fun Content(){
                 text = "Enter your name",
                 color = background,
                 fontSize = 16.sp,
-                fontFamily = FontFamily(listOf(
-                    Font(R.font.poppins_medium)
-                ))
+               )
 
-            )
+
 
         }
 
@@ -133,11 +125,9 @@ fun Content(){
                         text = "Enter your name",
                         color = background,
                         fontSize = 16.sp,
-                        fontFamily = FontFamily(listOf(
-                            Font(R.font.poppins_medium)
-                        ))
+                        )
 
-                    )
+
                     TextField(
                         value = dialogName,
                         onValueChange = {
@@ -166,7 +156,7 @@ fun Content(){
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = "Cnacel",
+                            text = "Cancel",
                             color = Color.Gray,
                             fontSize = 16.sp,
                             fontFamily = FontFamily(listOf(
@@ -174,8 +164,8 @@ fun Content(){
                             )),
                             modifier = Modifier
                                 .clickable {
-                                showDialog=false
-                            }
+                                    showDialog = false
+                                }
                                 .padding(10.dp),
 
 
@@ -184,14 +174,11 @@ fun Content(){
                             text = "Set",
                             color = background,
                             fontSize = 16.sp,
-                            fontFamily = FontFamily(listOf(
-                                Font(R.font.poppins_medium)
-                            )),
                             modifier = Modifier
                                 .clickable {
-                                name=dialogName
-                                showDialog=false
-                            }
+                                    name = dialogName
+                                    showDialog = false
+                                }
                                 .padding(top = 10.dp)
 
                         )
