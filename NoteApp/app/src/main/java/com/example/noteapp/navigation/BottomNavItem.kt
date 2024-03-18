@@ -1,4 +1,4 @@
-package com.example.noteapp
+package com.example.noteapp.navigation
 
 data class BottomNavItem (
     val name : String,
