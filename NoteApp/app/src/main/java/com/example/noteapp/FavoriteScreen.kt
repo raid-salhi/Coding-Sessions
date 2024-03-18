@@ -23,12 +23,13 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
 @Preview(showBackground = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoriteScreen(){
-    Scaffold (
+fun FavoriteScreen(navController: NavHostController) {
+    Scaffold(
         topBar = {
             TopAppBar(
                 title = {
@@ -36,9 +37,9 @@ fun FavoriteScreen(){
                         text = "Favorite",
                         fontSize = 16.sp,
                         fontFamily = FontFamily(listOf(Font(R.font.poppins_medium))),
-                        color = Color.Black
+                        color = Color.Black,
                     )
-                }
+                },
             )
         },
         floatingActionButton = {
@@ -46,33 +47,54 @@ fun FavoriteScreen(){
                 onClick = { /*TODO*/ },
                 contentColor = Color.White,
                 containerColor = Color.Black,
-                shape = CircleShape
+                shape = CircleShape,
             ) {
                 Icon(
                     imageVector = Icons.Filled.Add,
-                    contentDescription ="add",
+                    contentDescription = "add",
                 )
             }
-        }
+        },
     ) {
-        Column (
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = it.calculateTopPadding(), end = 20.dp, start = 20.dp, bottom = 20.dp)
-        ){
+        Column(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(top = it.calculateTopPadding(), end = 20.dp, start = 20.dp, bottom = 20.dp),
+        ) {
             SearchBar()
 
-            LazyColumn (modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 40.dp)){
-                val notes = listOf(
-                    Note(title = "Note title", body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.", category = "University",),
-                    Note(title = "Note title", body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.", category = "Research"),
-                    Note(title = "Note title", body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.", category = "University"),
-                    Note(title = "Note title", body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.", category = "Research")
-                )
-                items(notes){ note ->
-                    NoteCard(note,isHomeScreen = false)
+            LazyColumn(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(top = 40.dp),
+            ) {
+                val notes =
+                    listOf(
+                        Note(
+                            title = "Note title",
+                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
+                            category = "University",
+                        ),
+                        Note(
+                            title = "Note title",
+                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
+                            category = "Research",
+                        ),
+                        Note(
+                            title = "Note title",
+                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
+                            category = "University",
+                        ),
+                        Note(
+                            title = "Note title",
+                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
+                            category = "Research",
+                        ),
+                    )
+                items(notes) { note ->
+                    NoteCard(note, isHomeScreen = false)
                 }
             }
         }
