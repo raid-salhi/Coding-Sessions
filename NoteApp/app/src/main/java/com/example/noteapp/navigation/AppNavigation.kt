@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.res.painterResource
@@ -74,9 +75,8 @@ fun AppNavigation() {
 fun MyBottomBar(navController: NavController) {
 
     BottomAppBar(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().shadow(10.dp),
         containerColor = Color.White,
-        tonalElevation = 10.dp
     ) {
         val bottomNavItems = listOf(
             BottomNavItem("Favorite",R.drawable.fav, Screens.FavoriteScreen.name),

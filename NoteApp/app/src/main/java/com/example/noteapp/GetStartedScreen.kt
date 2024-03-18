@@ -25,8 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.noteapp.navigation.Screens
 
-@Preview(showBackground = true)
 @Composable
 fun GetStartedScreen(navController: NavHostController) {
     Column(
@@ -58,6 +58,7 @@ fun GetStartedScreen(navController: NavHostController) {
         )
         Spacer(modifier = Modifier.height(80.dp))
         GetStartedButton {
+            navController.navigate(Screens.HomeScreen.name)
         }
     }
 }
