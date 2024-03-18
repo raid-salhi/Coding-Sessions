@@ -17,8 +17,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -47,27 +45,26 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 
-@Preview(showBackground = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(){
-    Scaffold (
+fun HomeScreen(navController: NavHostController) {
+    Scaffold(
         topBar = {
             TopAppBar(
-                title = { 
+                title = {
                     Text(
                         text = "Home",
                         fontSize = 16.sp,
                         fontFamily = FontFamily(listOf(Font(R.font.poppins_medium))),
-                        color = Color.Black
+                        color = Color.Black,
                     )
-                }
+                },
             )
         },
         floatingActionButton = {
@@ -75,33 +72,54 @@ fun HomeScreen(){
                 onClick = { /*TODO*/ },
                 contentColor = Color.White,
                 containerColor = Black,
-                shape = CircleShape
+                shape = CircleShape,
             ) {
                 Icon(
                     imageVector = Icons.Filled.Add,
-                    contentDescription ="add",
+                    contentDescription = "add",
                 )
             }
-        }
+        },
     ) {
-        Column (
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = it.calculateTopPadding(), end = 20.dp, start = 20.dp, bottom = 20.dp)
-        ){
+        Column(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(top = it.calculateTopPadding(), end = 20.dp, start = 20.dp, bottom = 20.dp),
+        ) {
             SearchBar()
 
-            LazyColumn (modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 40.dp)){
-                val notes = listOf(
-                    Note(title = "Note title", body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.", category = "University",),
-                    Note(title = "Note title", body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.", category = "Research"),
-                    Note(title = "Note title", body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.", category = "University"),
-                    Note(title = "Note title", body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.", category = "Research")
-                )
-                items(notes){ note ->
-                    NoteCard(note,isHomeScreen = true)
+            LazyColumn(
+                modifier =
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(top = 40.dp),
+            ) {
+                val notes =
+                    listOf(
+                        Note(
+                            title = "Note title",
+                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
+                            category = "University",
+                        ),
+                        Note(
+                            title = "Note title",
+                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
+                            category = "Research",
+                        ),
+                        Note(
+                            title = "Note title",
+                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
+                            category = "University",
+                        ),
+                        Note(
+                            title = "Note title",
+                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
+                            category = "Research",
+                        ),
+                    )
+                items(notes) { note ->
+                    NoteCard(note, isHomeScreen = true)
                 }
             }
         }
@@ -109,71 +127,81 @@ fun HomeScreen(){
 }
 
 @Composable
-fun NoteCard(note: Note,isHomeScreen:Boolean) {
+fun NoteCard(
+    note: Note,
+    isHomeScreen: Boolean,
+) {
     var isFav by remember {
         mutableStateOf(note.isFav)
     }
-    Card (
+    Card(
         shape = RoundedCornerShape(5.dp),
         colors = CardDefaults.cardColors(containerColor = White),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 15.dp)
-    ){
-        Row (
-            modifier = Modifier
+        modifier =
+            Modifier
                 .fillMaxWidth()
-                .padding(start = 10.dp, end = 10.dp, top = 5.dp),
+                .padding(bottom = 15.dp),
+    ) {
+        Row(
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(start = 10.dp, end = 10.dp, top = 5.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ){
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
             Text(
                 text = note.title,
                 fontSize = 16.sp,
-                fontFamily = FontFamily(listOf(Font(R.font.poppins_medium)))
+                fontFamily = FontFamily(listOf(Font(R.font.poppins_medium))),
             )
-            if (isHomeScreen)
+            if (isHomeScreen) {
                 IconButton(
                     onClick = {
                         isFav = !isFav
                         note.isFav = isFav
-                              },
-                    colors = IconButtonDefaults.iconButtonColors(contentColor = Color(0xffFFE500))
+                    },
+                    colors = IconButtonDefaults.iconButtonColors(contentColor = Color(0xffFFE500)),
                 ) {
                     Icon(
-                        painter = painterResource(id = if (isFav) R.drawable.star_rate_filled else R.drawable.star_rate_emptry,) ,
+                        painter = painterResource(id = if (isFav) R.drawable.star_rate_filled else R.drawable.star_rate_emptry),
                         contentDescription = "fav",
                         modifier = Modifier.size(30.dp),
                     )
                 }
+            }
         }
         Text(
             text = note.body,
             fontSize = 14.sp,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            fontFamily = FontFamily(listOf(Font(R.font.poppins_regular)))
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+            fontFamily = FontFamily(listOf(Font(R.font.poppins_regular))),
         )
         Box(
-            modifier = Modifier
-                .padding(10.dp)
-                .clip(RoundedCornerShape(10.dp))
-                .background(
-                    if (note.category == "University")
-                        Color(0xffFFBCBC)
-                    else
-                        Color(0xffFFECBC)
-                )
-                .align(Alignment.End)
-        ){
+            modifier =
+                Modifier
+                    .padding(10.dp)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(
+                        if (note.category == "University") {
+                            Color(0xffFFBCBC)
+                        } else {
+                            Color(0xffFFECBC)
+                        },
+                    )
+                    .align(Alignment.End),
+        ) {
             Text(
-                text=note.category ,
+                text = note.category,
                 fontSize = 13.sp,
-                modifier = Modifier
-                    .padding(vertical = 6.dp, horizontal = 12.dp),
-                fontFamily = FontFamily(listOf(Font(R.font.poppins_regular)))
+                modifier =
+                    Modifier
+                        .padding(vertical = 6.dp, horizontal = 12.dp),
+                fontFamily = FontFamily(listOf(Font(R.font.poppins_regular))),
             )
         }
     }
@@ -181,48 +209,51 @@ fun NoteCard(note: Note,isHomeScreen:Boolean) {
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBar(onSearch:  (String) -> Unit = {}) {
+fun SearchBar(onSearch: (String) -> Unit = {}) {
     var value by remember {
         mutableStateOf(TextFieldValue())
     }
-    val keyboard= LocalSoftwareKeyboardController.current
+    val keyboard = LocalSoftwareKeyboardController.current
     TextField(
-        value = value ,
+        value = value,
         onValueChange = {
-            value=it
+            value = it
         },
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp)),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(10.dp)),
         placeholder = {
             Text(
                 text = "Search a title",
-                fontSize =14.sp,
-                fontFamily = FontFamily(listOf(Font(R.font.poppins_medium)))
+                fontSize = 14.sp,
+                fontFamily = FontFamily(listOf(Font(R.font.poppins_medium))),
             )
         },
         trailingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = "Srarch",
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
             )
-                       },
-        keyboardActions = KeyboardActions {
-            onSearch(value.text)
-            value= TextFieldValue(text = "")
-            keyboard?.hide()
         },
+        keyboardActions =
+            KeyboardActions {
+                onSearch(value.text)
+                value = TextFieldValue(text = "")
+                keyboard?.hide()
+            },
         singleLine = true,
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color(0xffECECEC),
-            focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent,
-            focusedTrailingIconColor = Color(0xff323232),
-            unfocusedTrailingIconColor = Color(0xff323232),
-            unfocusedPlaceholderColor = Color(0xff898989),
-            focusedLabelColor = Color.Transparent,
-            unfocusedLabelColor = Color.Transparent
-        ),
+        colors =
+            TextFieldDefaults.colors(
+                focusedContainerColor = Color(0xffECECEC),
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedTrailingIconColor = Color(0xff323232),
+                unfocusedTrailingIconColor = Color(0xff323232),
+                unfocusedPlaceholderColor = Color(0xff898989),
+                focusedLabelColor = Color.Transparent,
+                unfocusedLabelColor = Color.Transparent,
+            ),
     )
 }
