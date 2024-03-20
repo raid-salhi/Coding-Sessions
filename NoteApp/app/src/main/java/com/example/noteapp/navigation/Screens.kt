@@ -5,5 +5,6 @@ enum class Screens {
     GetStartedScreen,
     FavoriteScreen,
     HomeScreen,
-    CategoryScreen
+    CategoriesScreen,
+    AddNoteScreen
 }

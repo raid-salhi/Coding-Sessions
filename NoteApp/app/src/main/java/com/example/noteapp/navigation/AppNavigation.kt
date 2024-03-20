@@ -29,11 +29,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.noteapp.FavoriteScreen
-import com.example.noteapp.GetStartedScreen
-import com.example.noteapp.HomeScreen
+import com.example.noteapp.screens.CategoriesScreen
+import com.example.noteapp.screens.FavoriteScreen
+import com.example.noteapp.screens.GetStartedScreen
+import com.example.noteapp.screens.HomeScreen
 import com.example.noteapp.R
-import com.example.noteapp.SplashScreen
+import com.example.noteapp.screens.AddNoteScreen
+import com.example.noteapp.screens.SplashScreen
 
 @Composable
 fun AppNavigation() {
@@ -42,7 +44,7 @@ fun AppNavigation() {
         if (
             navController.currentBackStackEntryAsState().value?.destination?.route == Screens.HomeScreen.name ||
             navController.currentBackStackEntryAsState().value?.destination?.route == Screens.FavoriteScreen.name ||
-            navController.currentBackStackEntryAsState().value?.destination?.route == Screens.CategoryScreen.name
+            navController.currentBackStackEntryAsState().value?.destination?.route == Screens.CategoriesScreen.name
         ){
                 MyBottomBar(navController)
         }
@@ -61,12 +63,12 @@ fun AppNavigation() {
             composable(route = Screens.FavoriteScreen.name) {
                 FavoriteScreen(navController)
             }
-//        composable(route = Screens.CategoryScreen.name) {
-//            CategoryScreen(navController)
-//        }
-//        composable(route = Screens.AddNoteScreen.name) {
-//            AddNoteScreen(navController)
-//        }
+        composable(route = Screens.CategoriesScreen.name) {
+           CategoriesScreen(navController)
+        }
+        composable(route = Screens.AddNoteScreen.name) {
+            AddNoteScreen(navController)
+        }
         }
     }
 
@@ -81,7 +83,7 @@ fun MyBottomBar(navController: NavController) {
         val bottomNavItems = listOf(
             BottomNavItem("Favorite",R.drawable.fav, Screens.FavoriteScreen.name),
             BottomNavItem("Home",R.drawable.home, Screens.HomeScreen.name),
-            BottomNavItem("Category",R.drawable.cat, Screens.CategoryScreen.name),
+            BottomNavItem("Category",R.drawable.cat, Screens.CategoriesScreen.name),
         )
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination=navBackStackEntry?.destination

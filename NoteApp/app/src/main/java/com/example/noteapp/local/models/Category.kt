@@ -1,4 +1,4 @@
-package com.example.noteapp
+package com.example.noteapp.local.models
 
 import androidx.compose.ui.graphics.Color
 

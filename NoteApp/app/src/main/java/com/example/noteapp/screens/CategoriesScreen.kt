@@ -1,4 +1,4 @@
-package com.example.noteapp
+package com.example.noteapp.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -40,11 +40,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavHostController
+import com.example.noteapp.R
+import com.example.noteapp.local.models.Category
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun CategoriesScreen(){
+fun CategoriesScreen(navController: NavHostController) {
     var showAdd by remember {
         mutableStateOf(false)
     }

@@ -1,4 +1,4 @@
-package com.example.noteapp
+package com.example.noteapp.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,6 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.noteapp.R
 import com.example.noteapp.navigation.Screens
 import kotlinx.coroutines.delay
 
