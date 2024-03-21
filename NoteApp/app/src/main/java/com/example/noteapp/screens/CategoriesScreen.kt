@@ -34,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,10 +43,11 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import com.example.noteapp.R
+import com.example.noteapp.local.LocalDatabase
 import com.example.noteapp.local.models.Category
+import com.example.noteapp.local.models.Note
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview
 @Composable
 fun CategoriesScreen(navController: NavHostController) {
     var showAdd by remember {
@@ -80,6 +82,7 @@ fun CategoriesScreen(navController: NavHostController) {
             }
         }
     ) {
+        val context = LocalContext.current
         Column (
             modifier = Modifier
                 .fillMaxSize()
@@ -88,14 +91,13 @@ fun CategoriesScreen(navController: NavHostController) {
             LazyColumn (modifier = Modifier
                 .fillMaxWidth()
                 ){
-                val categories = listOf(
-                    Category("University",0xFFFFBCBC),
-                    Category("Research",0xFFFFECBC),
-                    Category("University",0xFFFFBCBC),
-                    Category("Research",0xFFFFECBC),
-                    Category("University",0xFFFFBCBC),
-                    Category("Research",0xFFFFECBC),
-                )
+
+
+
+                val database = LocalDatabase.getInstance(context)
+                database.CategoryDao().addCategory(Category("research",0xff123456,1))
+                val categories=database.CategoryDao().getAllCategories()
+
                 items(categories){ category ->
                     CategoryCard(category)
 

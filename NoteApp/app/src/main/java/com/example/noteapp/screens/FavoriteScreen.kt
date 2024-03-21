@@ -71,27 +71,27 @@ fun FavoriteScreen(navController: NavHostController) {
                         .padding(top = 40.dp),
             ) {
                 val notes =
-                    listOf(
-                        Note(
-                            title = "Note title",
-                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
-                            category = "University",
-                        ),
-                        Note(
-                            title = "Note title",
-                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
-                            category = "Research",
-                        ),
-                        Note(
-                            title = "Note title",
-                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
-                            category = "University",
-                        ),
-                        Note(
-                            title = "Note title",
-                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
-                            category = "Research",
-                        ),
+                    listOf<Note>(
+//                        Note(
+//                            title = "Note title",
+//                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
+//                            category = "University",
+//                        ),
+//                        Note(
+//                            title = "Note title",
+//                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
+//                            category = "Research",
+//                        ),
+//                        Note(
+//                            title = "Note title",
+//                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
+//                            category = "University",
+//                        ),
+//                        Note(
+//                            title = "Note title",
+//                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
+//                            category = "Research",
+//                        ),
                     )
                 items(notes) { note ->
                     NoteCard(note, isHomeScreen = false)

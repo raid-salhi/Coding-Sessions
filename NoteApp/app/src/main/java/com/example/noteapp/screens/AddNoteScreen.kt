@@ -143,10 +143,7 @@ fun AddNoteScreen(navController: NavHostController) {
                         .padding(start = 20.dp, end = 20.dp)
                 ) {
                         listOf(
-                            Category("University",0xff123456),
-                            Category("University",0xff123456),
-                            Category("University",0xff123456),
-                            Category("University",0xff123456),
+                            Category("University",0xff123456,1),
                             ).forEachIndexed() { position, selectionOption ->
                             DropdownMenuItem(
                                 text = {

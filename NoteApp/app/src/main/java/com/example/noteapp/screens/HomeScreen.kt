@@ -105,21 +105,29 @@ fun HomeScreen(navController: NavHostController) {
                             title = "Note title",
                             body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
                             category = "University",
+                            false,
+                            1
                         ),
                         Note(
                             title = "Note title",
                             body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
                             category = "Research",
+                            false,
+                            2
                         ),
                         Note(
                             title = "Note title",
                             body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
                             category = "University",
+                            false,
+                            3
                         ),
                         Note(
                             title = "Note title",
                             body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
                             category = "Research",
+                            false,
+                            4
                         ),
                     )
                 items(notes) { note ->
