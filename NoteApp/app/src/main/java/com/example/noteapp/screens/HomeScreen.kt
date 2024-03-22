@@ -41,6 +41,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -50,12 +51,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.noteapp.R
+import com.example.noteapp.local.LocalDatabase
 import com.example.noteapp.local.models.Note
 import com.example.noteapp.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavHostController) {
+    val context= LocalContext.current
+    val database=LocalDatabase.getInstance(context)
+    val notes=database.NoteDao().getAllNotes()
     Scaffold(
         topBar = {
             TopAppBar(
@@ -99,37 +104,6 @@ fun HomeScreen(navController: NavHostController) {
                         .fillMaxWidth()
                         .padding(top = 40.dp),
             ) {
-                val notes =
-                    listOf(
-                        Note(
-                            title = "Note title",
-                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
-                            category = "University",
-                            false,
-                            1
-                        ),
-                        Note(
-                            title = "Note title",
-                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
-                            category = "Research",
-                            false,
-                            2
-                        ),
-                        Note(
-                            title = "Note title",
-                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
-                            category = "University",
-                            false,
-                            3
-                        ),
-                        Note(
-                            title = "Note title",
-                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
-                            category = "Research",
-                            false,
-                            4
-                        ),
-                    )
                 items(notes) { note ->
                     NoteCard(note, isHomeScreen = true)
                 }

@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,21 +28,39 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.noteapp.R
-import com.example.noteapp.local.models.Category
+import com.example.noteapp.local.LocalDatabase
+import com.example.noteapp.local.models.Note
 
 @OptIn(ExperimentalMaterial3Api::class)
 //@Preview(showBackground = true)
 @Composable
 fun AddNoteScreen(navController: NavHostController) {
+    val context= LocalContext.current
+    val database= LocalDatabase.getInstance(context)
+    val categories = database.CategoryDao().getAllCategories()
+    var expanded by remember {
+        mutableStateOf(false)
+    }
+    var category by remember {
+        mutableStateOf("")
+    }
+    var title by remember {
+        mutableStateOf("")
+    }
+    var body by remember {
+        mutableStateOf("")
+    }
+    var isFav by remember {
+        mutableStateOf(false)
+    }
     Scaffold (
         topBar = {
             TopAppBar(
@@ -64,16 +84,42 @@ fun AddNoteScreen(navController: NavHostController) {
                             .padding(end = 20.dp)
                             .clickable {
                                 //TODO("delete note")
+
                             }
                     )
                     Icon(
-                        painter = painterResource(id = R.drawable.star_rate_emptry),
+                        painter =
+                        if(isFav)
+                            painterResource(id = R.drawable.star_rate_filled)
+                        else
+                            painterResource(id = R.drawable.star_rate_emptry)
+                        ,
                         contentDescription = "fav",
                         tint = Color.Black,
                         modifier = Modifier
                             .padding(end = 20.dp)
                             .clickable {
-                                //TODO("make note favorite")
+                                isFav = !isFav
+                            }
+                    )
+                    Icon(
+                        imageVector =
+                       Icons.Outlined.Check
+                        ,
+                        contentDescription = "save",
+                        tint = Color.Black,
+                        modifier = Modifier
+                            .padding(end = 20.dp)
+                            .clickable {
+                               database.NoteDao().addNote(
+                                   Note(
+                                       title,
+                                       body,
+                                       category,
+                                       isFav
+                                   )
+                               )
+                                navController.navigateUp()
                             }
                     )
 
@@ -86,18 +132,6 @@ fun AddNoteScreen(navController: NavHostController) {
                 .fillMaxSize()
                 .padding(top = it.calculateTopPadding(), end = 20.dp, start = 20.dp, bottom = 20.dp)
         ){
-            var expanded by remember {
-                mutableStateOf(false)
-            }
-            var category by remember {
-                mutableStateOf("")
-            }
-            var title by remember {
-                mutableStateOf("")
-            }
-            var description by remember {
-                mutableStateOf("")
-            }
             ExposedDropdownMenuBox(
                 expanded = expanded,
                 onExpandedChange = {
@@ -142,9 +176,7 @@ fun AddNoteScreen(navController: NavHostController) {
                         .fillMaxWidth()
                         .padding(start = 20.dp, end = 20.dp)
                 ) {
-                        listOf(
-                            Category("University",0xff123456,1),
-                            ).forEachIndexed() { position, selectionOption ->
+                        categories.forEachIndexed() { position, selectionOption ->
                             DropdownMenuItem(
                                 text = {
                                     Text(
@@ -184,8 +216,8 @@ fun AddNoteScreen(navController: NavHostController) {
                     )
                 }
             )
-            TextField(value = description, onValueChange = {
-                description=it
+            TextField(value = body, onValueChange = {
+                body=it
             },
                 modifier = Modifier
                     .fillMaxWidth()

@@ -1,5 +1,6 @@
 package com.example.noteapp.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -50,6 +51,9 @@ import com.example.noteapp.local.models.Note
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoriesScreen(navController: NavHostController) {
+    val database=LocalDatabase.getInstance(LocalContext.current)
+    val context= LocalContext.current
+    val categories=database.CategoryDao().getAllCategories()
     var showAdd by remember {
         mutableStateOf(false)
     }
@@ -82,7 +86,6 @@ fun CategoriesScreen(navController: NavHostController) {
             }
         }
     ) {
-        val context = LocalContext.current
         Column (
             modifier = Modifier
                 .fillMaxSize()
@@ -92,12 +95,6 @@ fun CategoriesScreen(navController: NavHostController) {
                 .fillMaxWidth()
                 ){
 
-
-
-                val database = LocalDatabase.getInstance(context)
-                database.CategoryDao().addCategory(Category("research",0xff123456,1))
-                val categories=database.CategoryDao().getAllCategories()
-
                 items(categories){ category ->
                     CategoryCard(category)
 
@@ -106,14 +103,28 @@ fun CategoriesScreen(navController: NavHostController) {
         }
     }
     if(showAdd){
-        AddCategoryDialog{
+        AddCategoryDialog{name,color->
+            if(name!="" && color!=""){
+                try {
+                    database.CategoryDao().addCategory(Category(name,color.toLong(16)))
+                    showAdd=false
+                }catch (e:Exception){
+                    Toast.makeText(
+                        context,
+                        e.localizedMessage,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
             showAdd=false
+
+
         }
     }
 }
 
 @Composable
-fun AddCategoryDialog(onDismiss: () -> Unit) {
+fun AddCategoryDialog(onDismiss: (name:String,color:String) -> Unit) {
     var name by remember {
         mutableStateOf("")
     }
@@ -123,7 +134,7 @@ fun AddCategoryDialog(onDismiss: () -> Unit) {
 
     Dialog(
         onDismissRequest = {
-        onDismiss()
+                onDismiss("","")
     }) {
         Column(
             Modifier.background(Color.White)
@@ -182,8 +193,7 @@ fun AddCategoryDialog(onDismiss: () -> Unit) {
                     .align(Alignment.End)
                     .padding(16.dp)
                     .clickable {
-                        //TODO("add category")
-                        onDismiss()
+                        onDismiss(name, color)
                     }
             )
 

@@ -18,17 +18,22 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.noteapp.R
+import com.example.noteapp.local.LocalDatabase
 import com.example.noteapp.local.models.Note
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FavoriteScreen(navController: NavHostController) {
+    val context= LocalContext.current
+    val database=LocalDatabase.getInstance(context)
+    val notes=database.NoteDao().getAllNotes().filter { it.isFav }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -42,7 +47,7 @@ fun FavoriteScreen(navController: NavHostController) {
                 },
             )
         },
-        floatingActionButton = {
+        /*floatingActionButton = {
             FloatingActionButton(
                 onClick = { /*TODO*/ },
                 contentColor = Color.White,
@@ -54,7 +59,7 @@ fun FavoriteScreen(navController: NavHostController) {
                     contentDescription = "add",
                 )
             }
-        },
+        },*/
     ) {
         Column(
             modifier =
@@ -70,8 +75,8 @@ fun FavoriteScreen(navController: NavHostController) {
                         .fillMaxWidth()
                         .padding(top = 40.dp),
             ) {
-                val notes =
-                    listOf<Note>(
+//                val notes =
+ //                   listOf<Note>(
 //                        Note(
 //                            title = "Note title",
 //                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
@@ -92,7 +97,7 @@ fun FavoriteScreen(navController: NavHostController) {
 //                            body = "Lorem Ipsuum placeholder text for use in your graphic, print and web layouts, and discover plugins for your favorite writing, design and blogging tools.",
 //                            category = "Research",
 //                        ),
-                    )
+                //                   )
                 items(notes) { note ->
                     NoteCard(note, isHomeScreen = false)
                 }

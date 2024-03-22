@@ -9,5 +9,5 @@ data class Note(
     val body : String,
     val category: String,
     var isFav : Boolean = false,
-    @PrimaryKey(autoGenerate = true) val id:Int
+    @PrimaryKey(autoGenerate = true) val id:Int=0
 )
