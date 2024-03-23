@@ -38,15 +38,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import com.example.noteapp.R
-import com.example.noteapp.local.LocalDatabase
-import com.example.noteapp.local.models.Category
-import com.example.noteapp.local.models.Note
+import com.example.noteapp.room.LocalDatabase
+import com.example.noteapp.room.entities.Category
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,13 +1,13 @@
-package com.example.noteapp.local
+package com.example.noteapp.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.noteapp.local.dao.CategoryDao
-import com.example.noteapp.local.dao.NoteDao
-import com.example.noteapp.local.models.Category
-import com.example.noteapp.local.models.Note
+import com.example.noteapp.room.dao.CategoryDao
+import com.example.noteapp.room.dao.NoteDao
+import com.example.noteapp.room.entities.Category
+import com.example.noteapp.room.entities.Note
 
 @Database(
     entities = [

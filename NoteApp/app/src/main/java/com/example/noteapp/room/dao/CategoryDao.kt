@@ -1,11 +1,10 @@
-package com.example.noteapp.local.dao
+package com.example.noteapp.room.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import androidx.room.Update
-import com.example.noteapp.local.models.Category
+import com.example.noteapp.room.entities.Category
 
 @Dao
 interface CategoryDao {

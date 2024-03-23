@@ -36,8 +36,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.noteapp.R
-import com.example.noteapp.local.LocalDatabase
-import com.example.noteapp.local.models.Note
+import com.example.noteapp.room.LocalDatabase
+import com.example.noteapp.room.entities.Note
 
 @OptIn(ExperimentalMaterial3Api::class)
 //@Preview(showBackground = true)

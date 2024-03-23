@@ -1,4 +1,4 @@
-package com.example.noteapp.local.models
+package com.example.noteapp.room.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
